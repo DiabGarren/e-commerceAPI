@@ -25,3 +25,32 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:3000/products/6467e49819f40423df4b87ed HTTP/1.1
+
+###
+GET https://e-commerceapi-aeg4.onrender.com/products HTTP/1.1
+
+###
+GET https://e-commerceapi-aeg4.onrender.com/products/6467e39dc076848955d5462e HTTP/1.1
+
+###
+POST https://e-commerceapi-aeg4.onrender.com/products HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Name1",
+    "price": "Price1",
+    "stock": "Stock1"
+}
+
+###
+PUT https://e-commerceapi-aeg4.onrender.com/products/6467e4bf58bbefd17cb2df60 HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Name1",
+    "price": "Price1",
+    "stock": "Stock1"  
+}
+
+###
+DELETE https://e-commerceapi-aeg4.onrender.com/products/6467e49819f40423df4b87ed HTTP/1.1
