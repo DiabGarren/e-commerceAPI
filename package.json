@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\"",
     "build": "npx tsc",
-    "swagger": "node src/swagger.ts"
+    "swagger": "node swagger.ts"
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,7 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "mongodb": "^5.5.0",
+    "swagger-ui-express": "^4.6.3",
     "validatorjs": "^3.22.1"
   },
   "devDependencies": {
@@ -35,6 +36,7 @@
     "concurrently": "^8.0.1",
     "eslint": "^8.40.0",
     "nodemon": "^2.0.22",
+    "swagger-autogen": "^2.23.1",
     "typescript": "^5.0.4"
   }
 }
