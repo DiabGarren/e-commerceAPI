@@ -15,5 +15,6 @@
         "typeRoots": ["./node_modules/@types", "./src/types"],
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true
-    }
+    },
+    "include": ["./src/**/*", "./src/swagger.json"]
 }
