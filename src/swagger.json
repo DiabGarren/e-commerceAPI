@@ -172,7 +172,10 @@
     },
     "/orders/": {
       "get": {
-        "description": "",
+        "tags": [
+          "Orders"
+        ],
+        "description": "Get all orders",
         "produces": [
           "application/json"
         ],
@@ -187,7 +190,10 @@
         }
       },
       "post": {
-        "description": "",
+        "tags": [
+          "Orders"
+        ],
+        "description": "Create a new order.",
         "parameters": [
           {
             "name": "body",
@@ -220,7 +226,10 @@
     },
     "/orders/{id}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Orders"
+        ],
+        "description": "Get order by ID.",
         "produces": [
           "application/json"
         ],
@@ -242,7 +251,10 @@
         }
       },
       "put": {
-        "description": "",
+        "tags": [
+          "Orders"
+        ],
+        "description": "Update an order",
         "parameters": [
           {
             "name": "id",
@@ -282,7 +294,10 @@
         }
       },
       "delete": {
-        "description": "",
+        "tags": [
+          "Orders"
+        ],
+        "description": "Delete an order.",
         "parameters": [
           {
             "name": "id",

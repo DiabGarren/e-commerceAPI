@@ -4,6 +4,10 @@ import { Request, Response } from 'express';
 
 export = {
     getOrders: async (req: Request, res: Response) => {
+        /*
+            #swagger.tags = ['Orders']
+            #swagger.description = 'Get all orders'
+        */
         try {
             const result = await db.getDb().db().collection('orders').find();
             const list = await result.toArray();
@@ -15,6 +19,10 @@ export = {
     },
 
     getOrderById: async (req: Request, res: Response) => {
+        /*
+            #swagger.tags = ['Orders']
+            #swagger.description = 'Get order by ID.'
+        */
         if (!ObjectId.isValid(req.params.id)) {
             return res.status(400).json('Must use a valid order id to find an order.');
         }
@@ -32,6 +40,10 @@ export = {
     },
 
     createOrder: async (req: Request, res: Response) => {
+        /*
+            #swagger.tags = ['Orders']
+            #swagger.description = 'Create a new order.'
+        */
         try {
             const order = {
                 orderStatus: req.body.orderStatus,
@@ -52,6 +64,10 @@ export = {
     },
 
     updateOrder: async (req: Request, res: Response) => {
+        /*
+            #swagger.tags = ['Orders']
+            #swagger.description = 'Update an order'
+        */
         if (!ObjectId.isValid(req.params.id)) {
             return res.status(400).json('Must use a valid order id to find a order.');
         }
@@ -73,6 +89,10 @@ export = {
     },
 
     deleteOrder: async (req: Request, res: Response) => {
+        /*
+            #swagger.tags = ['Orders']
+            #swagger.description = 'Delete an order.'
+        */
         if (!ObjectId.isValid(req.params.id)) {
             return res.status(400).json('Must use a valid order id to find a order.');
         }
