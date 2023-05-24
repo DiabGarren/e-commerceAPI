@@ -54,3 +54,33 @@ Content-Type: application/json
 
 ###
 DELETE https://e-commerceapi-aeg4.onrender.com/products/6467e49819f40423df4b87ed HTTP/1.1
+
+### Orders
+
+GET http://localhost:3000/orders HTTP/1.1
+
+###
+GET http://localhost:3000/orders/646dbbd2be37a54a7597bab5 HTTP/1.1
+
+###
+POST http://localhost:3000/orders HTTP/1.1
+Content-Type: application/json
+
+{
+  "orderStatus": "pending",
+  "userId": "637352507",
+  "userName": "user.example"
+}
+
+###
+PUT http://localhost:3000/orders/646dbbd2be37a54a7597bab5 HTTP/1.1
+Content-Type: application/json
+
+{
+  "orderStatus": "processing",
+  "userId": "987654321",
+  "userName": "johnDoe"
+}
+
+###
+DELETE http://localhost:3000/orders/646e60834bff410e3f20ea55 HTTP/1.1
