@@ -2,13 +2,13 @@ const mongodb = require('../db/index');
 const { objectId } = require('mongodb');
 
 export = {
-    getProducts: async (req, res) => {
+    getUsers: async (req, res) => {
         /*
-            #swagger.tags = ['Products']
-            #swagger.description = 'Get ALL products'
+            #swagger.tags = ['Users']
+            #swagger.description = 'Get ALL users'
         */
         try {
-            const result = mongodb.getDb().db().collection('products').find();
+            const result = mongodb.getDb().db().collection('users').find();
             result.toArray().then((list: any[]) => {
                 res.setHeader('Content-Type', 'application/json');
                 res.status(200).json(list);
@@ -18,29 +18,29 @@ export = {
         }
     },
 
-    getProduct: async (req, res) => {
+    getUser: async (req, res) => {
         /*
-            #swagger.tags = ['Products']
-            #swagger.description = 'Get product by ID.'
+            #swagger.tags = ['Users']
+            #swagger.description = 'Get user by ID.'
         */
         try {
             if (!objectId.isValid(req.params.id)) {
                 res.status(400).json(
-                    'A valid product id is required to find a product.'
+                    'A valid user id is required to find a user.'
                 );
             }
             const id = new objectId(req.params.id);
             const result = mongodb
                 .getDb()
                 .db()
-                .collection('products')
+                .collection('users')
                 .find({ _id: id });
             result
                 .toArray()
                 .then((list: any[]) => {
                     if (list.length == 0) {
                         res.status(400).send({
-                            message: 'Cannot find product with id: ' + id,
+                            message: 'Cannot find user with id: ' + id,
                         });
                     } else {
                         res.setHeader('Content-Type', 'application/json');
@@ -49,7 +49,7 @@ export = {
                 })
                 .catch((err: Error | any) => {
                     res.status(500).send({
-                        message: 'Error finding product with id=' + id,
+                        message: 'Error finding user with id=' + id,
                         error: err,
                     });
                 });
@@ -58,27 +58,28 @@ export = {
         }
     },
 
-    createProduct: async (req, res) => {
+    createUser: async (req, res) => {
         /*
-            #swagger.tags = ['Products']
-            #swagger.description = 'Add a NEW product.'
+            #swagger.tags = ['Users']
+            #swagger.description = 'Add a NEW user.'
         */
         try {
-            const product = {
-                name: req.body.name,
-                price: req.body.price,
-                stock: req.body.stock,
+            const user = {
+                userName: req.body.userName,
+                email: req.body.email,
+                password: req.body.password,
+                userType: req.body.userType,
             };
             const response = await mongodb
                 .getDb()
                 .db()
-                .collection('products')
-                .insertOne(product);
+                .collection('users')
+                .insertOne(user);
             if (response.acknowledged) {
                 res.status(201).json(response);
             } else {
                 res.status(500).json(
-                    'Some error occurred while creating the product.'
+                    'Some error occurred while creating the user.'
                 );
             }
         } catch (err) {
@@ -86,34 +87,35 @@ export = {
         }
     },
 
-    updateProduct: async (req, res) => {
+    updateUser: async (req, res) => {
         /*
-            #swagger.tags = ['Products']
-            #swagger.description = 'Update a product by ID.'
+            #swagger.tags = ['Users']
+            #swagger.description = 'Update a user by ID.'
         */
         try {
             if (!objectId.isValid(req.params.id)) {
                 res.status(400).json(
-                    'A valid product id is required to update a product.'
+                    'A valid user id is required to update a user.'
                 );
             }
             const id = new objectId(req.params.id);
-            const product = {
-                name: req.body.name,
-                price: req.body.price,
-                stock: req.body.stock,
+            const user = {
+                userName: req.body.userName,
+                email: req.body.email,
+                password: req.body.password,
+                userType: req.body.userType,
             };
 
             const response = await mongodb
                 .getDb()
                 .db()
-                .collection('products')
-                .replaceOne({ _id: id }, product);
+                .collection('users')
+                .replaceOne({ _id: id }, user);
             if (response.acknowledged) {
                 res.status(204).send();
             } else {
                 res.status(500).json(
-                    'Some error occurred while updating the product.'
+                    'Some error occurred while updating the user.'
                 );
             }
         } catch (err) {
@@ -121,28 +123,28 @@ export = {
         }
     },
 
-    deleteProduct: async (req, res) => {
+    deleteUser: async (req, res) => {
         /*
-            #swagger.tags = ['Products']
-            #swagger.description = 'Delete a product by ID.'
+            #swagger.tags = ['Users']
+            #swagger.description = 'Delete a user by ID.'
         */
         try {
             if (!objectId.isValid(req.params.id)) {
                 res.status(400).json(
-                    'A valid product id is required to delete a product.'
+                    'A valid user id is required to delete a user.'
                 );
             }
             const id = new objectId(req.params.id);
             const response = await mongodb
                 .getDb()
                 .db()
-                .collection('products')
+                .collection('users')
                 .deleteOne({ _id: id });
             if (response.deletedCount > 0) {
                 res.status(200).send();
             } else {
                 res.status(500).json(
-                    'Some error occurred while deleting the product.'
+                    'Some error occurred while deleting the user.'
                 );
             }
         } catch (err) {
