@@ -10,6 +10,15 @@
   "schemes": [
     "https"
   ],
+  "securityDefinitions": {
+    "Authorization": {
+      "type": "oauth2",
+      "name": "authorization",
+      "in": "header",
+      "description": "Authentication link",
+      "authorizationUrl": "https://e-commerceapi-aeg4.onrender.com/login"
+    }
+  },
   "paths": {
     "/login": {
       "get": {
