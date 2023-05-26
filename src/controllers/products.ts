@@ -66,6 +66,7 @@ export = {
         try {
             const product = {
                 name: req.body.name,
+                description: req.body.description,
                 price: req.body.price,
                 category: req.body.category,
                 image: req.body.image,
@@ -103,6 +104,7 @@ export = {
             const id = new ObjectId(req.params.id);
             const product = {
                 name: req.body.name,
+                description: req.body.description,
                 price: req.body.price,
                 category: req.body.category,
                 image: req.body.image,
