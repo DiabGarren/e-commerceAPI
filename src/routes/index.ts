@@ -16,7 +16,7 @@ routes.use('/reviews', reviews);
 // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
 routes.get('/login', passport.authenticate('github'), (req, res) => {});
 
-routes.get('/logout', function (req, res, next) {
+routes.get('/logout', function (req: any, res, next) {
     req.logout(function (err) {
         if (err) {
             return next(err);
