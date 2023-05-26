@@ -1,11 +1,25 @@
-const mongodb = require('../db/index');
-const { objectId } = require('mongodb');
+import mongodb from '../db/';
+import { ObjectId } from 'mongodb';
+import bcrypt from 'bcrypt';
+
+
+const hashPassword = async (password: string) => {
+    const hash = await bcrypt.hash(password, 10);
+    return hash;
+};
+
+const comparePassword = async (password: string, hash: string) => {
+    const result = await bcrypt.compare(password, hash);
+    return result;
+};
 
 export = {
     getUsers: async (req, res) => {
         /*
             #swagger.tags = ['Users']
-            #swagger.description = 'Get ALL users'
+            #swagger.description = 'Get ALL users. 
+            The password must be: minimum 8 characters, contain at least 1 upper case, 1 lower case and 1 number. 
+            All passwords are hashed.'
         */
         try {
             const result = mongodb.getDb().db().collection('users').find();
@@ -21,15 +35,16 @@ export = {
     getUser: async (req, res) => {
         /*
             #swagger.tags = ['Users']
-            #swagger.description = 'Get user by ID.'
+            #swagger.description = 'Get user by ID. The password must be: minimum 8 characters, contain at least 1 upper case, 1 lower case and 1 number. 
+            All passwords are hashed.'
         */
         try {
-            if (!objectId.isValid(req.params.id)) {
+            if (!ObjectId.isValid(req.params.id)) {
                 res.status(400).json(
                     'A valid user id is required to find a user.'
                 );
             }
-            const id = new objectId(req.params.id);
+            const id = new ObjectId(req.params.id);
             const result = mongodb
                 .getDb()
                 .db()
@@ -61,13 +76,14 @@ export = {
     createUser: async (req, res) => {
         /*
             #swagger.tags = ['Users']
-            #swagger.description = 'Add a NEW user.'
+            #swagger.description = 'Add a NEW user. The password must be: minimum 8 characters, contain at least 1 upper case, 1 lower case and 1 number. 
+            All passwords are hashed.'
         */
         try {
             const user = {
                 userName: req.body.userName,
                 email: req.body.email,
-                password: req.body.password,
+                password: await hashPassword(req.body.password),
                 userType: req.body.userType,
             };
             const response = await mongodb
@@ -90,34 +106,49 @@ export = {
     updateUser: async (req, res) => {
         /*
             #swagger.tags = ['Users']
-            #swagger.description = 'Update a user by ID.'
+            #swagger.description = 'Update a user by ID. The password must be: minimum 8 characters, contain at least 1 upper case, 1 lower case and 1 number. 
+            All passwords are hashed.'
         */
         try {
-            if (!objectId.isValid(req.params.id)) {
+            if (!ObjectId.isValid(req.params.id)) {
                 res.status(400).json(
                     'A valid user id is required to update a user.'
                 );
             }
-            const id = new objectId(req.params.id);
+            const id = new ObjectId(req.params.id);
             const user = {
                 userName: req.body.userName,
                 email: req.body.email,
-                password: req.body.password,
+                password: await hashPassword(req.body.password),
                 userType: req.body.userType,
             };
 
-            const response = await mongodb
+            const result = mongodb
                 .getDb()
                 .db()
                 .collection('users')
-                .replaceOne({ _id: id }, user);
-            if (response.acknowledged) {
-                res.status(204).send();
+                .find({ _id: id });
+            const hash = await result.toArray();
+
+            const compPass = await comparePassword(req.body.password, hash[0].password);
+
+            if (compPass == true) {
+                res.status(400).json('The new password cannot be the same as the old password.');
             } else {
-                res.status(500).json(
-                    'Some error occurred while updating the user.'
-                );
+                const response = await mongodb
+                    .getDb()
+                    .db()
+                    .collection('users')
+                    .replaceOne({ _id: id }, user);
+                if (response.acknowledged) {
+                    res.status(204).send();
+                } else {
+                    res.status(500).json(
+                        'Some error occurred while updating the user.'
+                    );
+                }
             }
+
         } catch (err) {
             res.status(500).json(err);
         }
@@ -126,15 +157,16 @@ export = {
     deleteUser: async (req, res) => {
         /*
             #swagger.tags = ['Users']
-            #swagger.description = 'Delete a user by ID.'
+            #swagger.description = 'Delete a user by ID. The password must be: minimum 8 characters, contain at least 1 upper case, 1 lower case and 1 number. 
+            All passwords are hashed.'
         */
         try {
-            if (!objectId.isValid(req.params.id)) {
+            if (!ObjectId.isValid(req.params.id)) {
                 res.status(400).json(
                     'A valid user id is required to delete a user.'
                 );
             }
-            const id = new objectId(req.params.id);
+            const id = new ObjectId(req.params.id);
             const response = await mongodb
                 .getDb()
                 .db()
