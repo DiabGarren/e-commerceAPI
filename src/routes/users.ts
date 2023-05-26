@@ -1,8 +1,9 @@
-const routes = require('express').Router();
-const usersController = require('../controllers/users');
+import express from 'express';
+const routes = express.Router();
+import usersController from '../controllers/users';
 
-const validation = require('../middleware/validate');
-const auth = require('../middleware/authenticate');
+import validation from '../middleware/validate';
+import auth from '../middleware/authenticate';
 
 routes.get('/', auth.isAuthenticated, usersController.getUsers);
 routes.get('/:id', auth.isAuthenticated, usersController.getUser);
@@ -23,4 +24,4 @@ routes.put(
 
 routes.delete('/:id', auth.isAuthenticated, usersController.deleteUser);
 
-module.exports = routes;
+export = routes;

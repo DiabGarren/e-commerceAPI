@@ -1,4 +1,4 @@
-const validator = require('../helpers/validate');
+import validator from '../helpers/validate';
 
 const saveProduct = (req, res, next) => {
     const validationRule = {
@@ -82,9 +82,9 @@ const saveUser = (req, res, next) => {
     });
 };
 
-module.exports = {
+export = {
     saveProduct,
     saveOrder,
     saveReview,
-    saveUser,
+    saveUser
 };

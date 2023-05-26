@@ -1,5 +1,5 @@
-const mongodb = require('../db/index');
-const { objectId } = require('mongodb');
+import mongodb from '../db';
+import { ObjectId } from 'mongodb';
 
 export = {
     getProducts: async (req, res) => {
@@ -24,12 +24,12 @@ export = {
             #swagger.description = 'Get product by ID.'
         */
         try {
-            if (!objectId.isValid(req.params.id)) {
+            if (!ObjectId.isValid(req.params.id)) {
                 res.status(400).json(
                     'A valid product id is required to find a product.'
                 );
             }
-            const id = new objectId(req.params.id);
+            const id = new ObjectId(req.params.id);
             const result = mongodb
                 .getDb()
                 .db()
@@ -92,12 +92,12 @@ export = {
             #swagger.description = 'Update a product by ID.'
         */
         try {
-            if (!objectId.isValid(req.params.id)) {
+            if (!ObjectId.isValid(req.params.id)) {
                 res.status(400).json(
                     'A valid product id is required to update a product.'
                 );
             }
-            const id = new objectId(req.params.id);
+            const id = new ObjectId(req.params.id);
             const product = {
                 name: req.body.name,
                 price: req.body.price,
@@ -127,12 +127,12 @@ export = {
             #swagger.description = 'Delete a product by ID.'
         */
         try {
-            if (!objectId.isValid(req.params.id)) {
+            if (!ObjectId.isValid(req.params.id)) {
                 res.status(400).json(
                     'A valid product id is required to delete a product.'
                 );
             }
-            const id = new objectId(req.params.id);
+            const id = new ObjectId(req.params.id);
             const response = await mongodb
                 .getDb()
                 .db()

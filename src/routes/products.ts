@@ -1,8 +1,8 @@
-const express = require('express');
-const products = require('../controllers/products');
+import express from 'express';
+import products from '../controllers/products';
 
-const validation = require('../middleware/validate');
-const auth = require('../middleware/authenticate');
+import validation from '../middleware/validate';
+import auth from '../middleware/authenticate';
 
 const routes = express.Router();
 

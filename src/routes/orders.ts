@@ -1,10 +1,9 @@
-const express = require('express');
-const orders = require('../controllers/orders');
-
-const validation = require('../middleware/validate');
-const auth = require('../middleware/authenticate');
-
+import express from 'express';
 const routes = express.Router();
+
+import orders from '../controllers/orders';
+import validation from '../middleware/validate';
+import auth from '../middleware/authenticate';
 
 routes.get('/', orders.getOrders);
 routes.get('/:id', orders.getOrderById);

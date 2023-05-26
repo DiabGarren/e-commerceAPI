@@ -1,9 +1,9 @@
-const express = require('express');
-const mongodb = require('./db/index');
-const bodyParser = require('body-parser');
-const passport = require('passport');
-const session = require('express-session');
-const cors = require('cors');
+import express from 'express';
+import mongodb from './db/index';
+import bodyParser from 'body-parser';
+import passport from 'passport';
+import session from 'express-session';
+import cors from 'cors';
 const GitHubStrategy = require('passport-github2').Strategy;
 
 const app = express();
@@ -58,11 +58,11 @@ passport.serializeUser((user, done) => {
     done(null, user);
 });
 
-passport.deserializeUser((user, done) => {
+passport.deserializeUser((user: any, done) => {
     done(null, user);
 });
 
-app.get('/', (req, res) => {
+app.get('/', (req: Request | any, res: Response | any) => {
     res.send(
         req.session.user !== undefined
             ? `Logged in as ${req.session.user.displayName}`
@@ -76,7 +76,7 @@ app.get(
         failureRedirect: '/api-docs',
         session: false,
     }),
-    (req, res) => {
+    (req: Request | any, res: Response | any) => {
         req.session.user = req.user;
         res.redirect('/');
     }
