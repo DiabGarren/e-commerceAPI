@@ -75,6 +75,9 @@
                 "name": {
                   "example": "any"
                 },
+                "description": {
+                  "example": "any"
+                },
                 "price": {
                   "example": "any"
                 },
@@ -155,6 +158,9 @@
               "type": "object",
               "properties": {
                 "name": {
+                  "example": "any"
+                },
+                "description": {
                   "example": "any"
                 },
                 "price": {
