@@ -1,10 +1,10 @@
 import express from 'express';
+const routes = express.Router();
+
 import products from '../controllers/products';
 
 import validation from '../middleware/validate';
 import auth from '../middleware/authenticate';
-
-const routes = express.Router();
 
 routes.get('/', products.getProducts);
 routes.get('/:id', products.getProduct);

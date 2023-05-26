@@ -67,7 +67,10 @@ export = {
             const product = {
                 name: req.body.name,
                 price: req.body.price,
+                category: req.body.category,
+                image: req.body.image,
                 stock: req.body.stock,
+                reviews: req.body.reviews
             };
             const response = await mongodb
                 .getDb()
@@ -101,7 +104,10 @@ export = {
             const product = {
                 name: req.body.name,
                 price: req.body.price,
+                category: req.body.category,
+                image: req.body.image,
                 stock: req.body.stock,
+                reviews: req.body.reviews
             };
 
             const response = await mongodb
