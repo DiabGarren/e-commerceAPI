@@ -1,4 +1,5 @@
-export = {
+export default {
     verbose: true,
-    setupFiles: ['dotenv/config']
+    setupFiles: ['dotenv/config'],
+    preset: 'ts-jest'
 };

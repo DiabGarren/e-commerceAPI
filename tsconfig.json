@@ -18,6 +18,5 @@
         "noImplicitAny": false,
         "useUnknownInCatchVariables": false
     },
-    "include": ["./src/**/*", "./src/swagger.json"],
-    "exclude": ["./src/tests/*"]
+    "include": ["./src/**/*", "./src/swagger.json"]
 }
