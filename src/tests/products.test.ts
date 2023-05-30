@@ -7,7 +7,7 @@ describe('insert', () => {
     beforeAll(async () => {
         connection = await MongoClient.connect(process.env.MONGODB_URI);
         db = await connection.db('ecommerce');
-    });
+    }, 55000);
 
     afterAll(async () => {
         await connection.close();
@@ -40,7 +40,7 @@ describe('getOne', () => {
     beforeAll(async () => {
         connection = await MongoClient.connect(process.env.MONGODB_URI);
         db = await connection.db('ecommerce');
-    });
+    }, 55000);
 
     afterAll(async () => {
         await connection.close();
@@ -72,8 +72,7 @@ describe('update', () => {
     beforeAll(async () => {
         connection = await MongoClient.connect(process.env.MONGODB_URI);
         db = await connection.db('ecommerce');
-    });
-
+    }, 55000);
     afterAll(async () => {
         await connection.close();
     });
@@ -106,7 +105,7 @@ describe('delete', () => {
     beforeAll(async () => {
         connection = await MongoClient.connect(process.env.MONGODB_URI);
         db = await connection.db('ecommerce');
-    });
+    }, 55000);
 
     afterAll(async () => {
         await connection.close();

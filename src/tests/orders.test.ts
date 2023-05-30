@@ -7,21 +7,20 @@ describe('insert', () => {
     beforeAll(async () => {
         connection = await MongoClient.connect(process.env.MONGODB_URI);
         db = await connection.db('ecommerce');
-    }, 55000); //Increase the timeout to 55000 ms
+    }, 55000);
 
     afterAll(async () => {
         await connection.close();
     });
 
     it('should insert a doc into collection', async () => {
-        const reviews = db.collection('reviews');
+        const reviews = db.collection('orders');
 
         const mockReview = {
             _id: 'some-review-id',
-            'userName': 'ExampleUsername',
-            'rating': 5,
-            'comments': 'ExampleComment',
-            'productId': 'ExampleId'
+            'orderStatus': 'statusExample',
+            'userId': '646dbbe5475bcb2',
+            'userName': 'exampleUsername',
         };
         await reviews.insertOne(mockReview);
 
@@ -44,14 +43,13 @@ describe('getOne', () => {
     });
 
     it('should get a doc from collection', async () => {
-        const reviews = db.collection('reviews');
+        const reviews = db.collection('orders');
 
         const mockReview = {
             _id: 'some-review-id',
-            'userName': 'ExampleUsername',
-            'rating': 5,
-            'comments': 'ExampleComment',
-            'productId': 'ExampleId'
+            'orderStatus': 'statusExample',
+            'userId': '646dbbe5475bcb2',
+            'userName': 'exampleUsername',
         };
 
         const expectedReview = await reviews.findOne({ _id: 'some-review-id' });
@@ -73,14 +71,13 @@ describe('update', () => {
     });
 
     it('should update a doc from collection', async () => {
-        const reviews = db.collection('reviews');
+        const reviews = db.collection('orders');
 
         const mockReview = {
             _id: 'some-review-id',
-            'userName': 'Jhon Doe',
-            'rating': 1.5,
-            'comments': 'Bad product',
-            'productId': '123456789'
+            'orderStatus': 'statusExample',
+            'userId': '646dbbe5475bcb2',
+            'userName': 'exampleUsername',
         };
 
         await reviews.replaceOne({ _id: 'some-review-id' }, mockReview);
@@ -98,13 +95,12 @@ describe('delete', () => {
         connection = await MongoClient.connect(process.env.MONGODB_URI);
         db = await connection.db('ecommerce');
     }, 55000);
-
     afterAll(async () => {
         await connection.close();
     });
 
     it('should delete a doc from collection', async () => {
-        const reviews = db.collection('reviews');
+        const reviews = db.collection('orders');
 
         const confirmDelete = {
             'acknowledged': true,
