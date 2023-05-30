@@ -91,3 +91,5 @@ mongodb.initDb((err) => {
         );
     }
 });
+
+export = app;
