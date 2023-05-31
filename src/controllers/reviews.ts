@@ -136,7 +136,7 @@ export = {
         try {
             const review = {
                 username: req.body.username,
-                rating: req.body.rating,
+                rating: parseFloat(req.body.rating),
                 comments: req.body.comments,
                 productId: req.body.productId
             };
@@ -171,7 +171,7 @@ export = {
             const id = new ObjectId(req.params.id);
             const review = {
                 username: req.body.username,
-                rating: req.body.rating,
+                rating: parseFloat(req.body.rating),
                 comments: req.body.comments,
                 productId: req.body.productId
             };
