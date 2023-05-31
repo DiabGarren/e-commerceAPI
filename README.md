@@ -34,7 +34,7 @@ Extra credit to implement using TypeScript. Implement a workable frontend more t
 ### Products
 -	GET /products
 -	GET /products/{productId}
--	GET /products/{type}
+-	GET /products/category/{category}
 -	POST /products
 -	PUT /products/{productid}
 -	DELETE /products/{productId}
@@ -46,9 +46,9 @@ Extra credit to implement using TypeScript. Implement a workable frontend more t
 - DELETE /orders/{orderId}
 ### Reviews
 - GET /reviews
-- GET /reviews/{productId}
 - GET /reviews/{reviewId}
-- GET /reviews/{rating}
+- GET /reviews/productId/{productId}
+- GET /reviews/rating/{rating}
 - POST /reviews
 - PUT /reviews/{reviewId}
 - DELETE /reviews/{reviewId}
