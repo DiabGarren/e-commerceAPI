@@ -90,6 +90,64 @@ describe('update', () => {
     });
 });
 
+describe('getOneByProductId', () => {
+    let connection;
+    let db;
+
+    beforeAll(async () => {
+        connection = await MongoClient.connect(process.env.MONGODB_URI);
+        db = await connection.db('ecommerce');
+    }, 55000);
+
+    afterAll(async () => {
+        await connection.close();
+    });
+
+    it('should get a doc from collection', async () => {
+        const reviews = db.collection('reviews');
+
+        const mockReview = {
+            _id: 'some-review-id',
+            'userName': 'Jhon Doe',
+            'rating': 1.5,
+            'comments': 'Bad product',
+            'productId': '123456789'
+        };
+
+        const expectedReview = await reviews.findOne({ productId: '123456789' });
+        expect(expectedReview).toEqual(mockReview);
+    });
+});
+
+describe('getOneByRating', () => {
+    let connection;
+    let db;
+
+    beforeAll(async () => {
+        connection = await MongoClient.connect(process.env.MONGODB_URI);
+        db = await connection.db('ecommerce');
+    }, 55000);
+
+    afterAll(async () => {
+        await connection.close();
+    });
+
+    it('should get a doc from collection', async () => {
+        const reviews = db.collection('reviews');
+
+        const mockReview = {
+            _id: 'some-review-id',
+            'userName': 'Jhon Doe',
+            'rating': 1.5,
+            'comments': 'Bad product',
+            'productId': '123456789'
+        };
+
+        const expectedReview = await reviews.findOne({ rating: 1.5 });
+        expect(expectedReview).toEqual(mockReview);
+    });
+});
+
 describe('delete', () => {
     let connection;
     let db;

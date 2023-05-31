@@ -58,6 +58,76 @@ export = {
         }
     },
 
+    getReviewbyProductId: async (req, res) => {
+        /*
+            #swagger.tags = ['Reviews']
+            #swagger.description = 'Get review by ProductId.'
+        */
+        try {
+            const id = req.params.id;
+            const result = mongodb
+                .getDb()
+                .db()
+                .collection('reviews')
+                .find({ productId: id });
+            result
+                .toArray()
+                .then((list: any[]) => {
+                    if (list.length == 0) {
+                        res.status(400).send({
+                            message: 'Cannot find review with productId: ' + id,
+                        });
+                    } else {
+                        res.setHeader('Content-Type', 'application/json');
+                        res.status(200).json(list[0]);
+                    }
+                })
+                .catch((err: Error | any) => {
+                    res.status(500).send({
+                        message: 'Error finding review with productId=' + id,
+                        error: err,
+                    });
+                });
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    },
+
+    getReviewByRating: async (req, res) => {
+        /*
+            #swagger.tags = ['Reviews']
+            #swagger.description = 'Get review by Rating.'
+        */
+        try {
+            const rating = parseFloat(req.params.rating);
+            const result = mongodb
+                .getDb()
+                .db()
+                .collection('reviews')
+                .find({ rating: rating });
+            result
+                .toArray()
+                .then((list: any[]) => {
+                    if (list.length == 0) {
+                        res.status(400).send({
+                            message: 'Cannot find review with rating: ' + rating,
+                        });
+                    } else {
+                        res.setHeader('Content-Type', 'application/json');
+                        res.status(200).json(list);
+                    }
+                })
+                .catch((err: Error | any) => {
+                    res.status(500).send({
+                        message: 'Error finding review with rating=' + rating,
+                        error: err,
+                    });
+                });
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    },
+
     createReview: async (req, res) => {
         /*
             #swagger.tags = ['Reviews']
@@ -67,7 +137,8 @@ export = {
             const review = {
                 username: req.body.username,
                 rating: req.body.rating,
-                comment: req.body.comment
+                comments: req.body.comments,
+                productId: req.body.productId
             };
             const response = await mongodb
                 .getDb()
@@ -101,7 +172,8 @@ export = {
             const review = {
                 username: req.body.username,
                 rating: req.body.rating,
-                comment: req.body.comment
+                comments: req.body.comments,
+                productId: req.body.productId
             };
 
             const response = await mongodb
