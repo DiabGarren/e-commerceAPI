@@ -5,8 +5,10 @@ const doc = {
         title: 'E-Commerce Final Project',
         description: 'API for final e-commerce project',
     },
-    host: 'e-commerceapi-aeg4.onrender.com',
-    schemes: ['https'],
+    // host: 'e-commerceapi-aeg4.onrender.com',
+    // schemes: ['https'],
+    host: 'localhost:3000',
+    schemes: ['http'],
     securityDefinitions: {
         Authorization: {
             type: 'oauth2',
