@@ -58,6 +58,41 @@ export = {
         }
     },
 
+    getProductByCategory: async (req, res) => {
+        /*
+            #swagger.tags = ['Products']
+            #swagger.description = 'Get product by Category.'
+        */
+        try {
+            const category = req.params.category;
+            const result = mongodb
+                .getDb()
+                .db()
+                .collection('products')
+                .find({ category: category });
+            result
+                .toArray()
+                .then((list: any[]) => {
+                    if (list.length == 0) {
+                        res.status(400).send({
+                            message: 'Cannot find product with category: ' + category,
+                        });
+                    } else {
+                        res.setHeader('Content-Type', 'application/json');
+                        res.status(200).json(list);
+                    }
+                })
+                .catch((err: Error | any) => {
+                    res.status(500).send({
+                        message: 'Error finding product with category=' + category,
+                        error: err,
+                    });
+                });
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    },
+
     createProduct: async (req, res) => {
         /*
             #swagger.tags = ['Products']

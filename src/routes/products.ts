@@ -9,6 +9,8 @@ import auth from '../middleware/authenticate';
 routes.get('/', products.getProducts);
 routes.get('/:id', products.getProduct);
 
+routes.get('/category/:category', products.getProductByCategory);
+
 routes.post('/', validation.saveProduct, products.createProduct);
 
 routes.put(

@@ -98,6 +98,38 @@ describe('update', () => {
     });
 });
 
+describe('getOneByCategory', () => {
+    let connection;
+    let db;
+
+    beforeAll(async () => {
+        connection = await MongoClient.connect(process.env.MONGODB_URI);
+        db = await connection.db('ecommerce');
+    }, 55000);
+
+    afterAll(async () => {
+        await connection.close();
+    });
+
+    it('should get a doc from collection', async () => {
+        const products = db.collection('products');
+
+        const mockProduct = {
+            _id: 'some-product-id',
+            name: 'Name',
+            description: 'Desc',
+            price: 'Price',
+            category: 'Category',
+            image: 'Image',
+            stock: 'Stock',
+            reviews: 'Reviews'
+        };
+
+        const expectedProduct = await products.findOne({ category: 'Category' });
+        expect(expectedProduct).toEqual(mockProduct);
+    });
+});
+
 describe('delete', () => {
     let connection;
     let db;
