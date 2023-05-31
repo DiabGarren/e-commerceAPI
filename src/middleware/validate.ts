@@ -44,8 +44,8 @@ const saveOrder = (req, res, next) => {
 
 const saveReview = (req, res, next) => {
     const validationRule = {
-        reviewerName: 'required|string',
-        rating: 'required|string',
+        username: 'required|string',
+        rating: 'required|double',
         comments: 'required|string',
         productId: 'required|string',
     };
